@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cauldron: the life counter that prints tokens</title>
+<meta name="description" content="Cauldron is a free card game life counter for iPhone, iPad and Android that prints tokens, cards and whole draft packs on a thermal printer. Everything it does, and how to run a Cauldy's Chaos Draft.">
+<link rel="icon" href="cauldy.png">
+<style>
+  body { background: #c0c0c0; color: #000000; font-family: "Times New Roman", Times, serif; font-size: 18px; line-height: 1.35; margin: 0; }
+  html { scroll-behavior: smooth; }
+  #frame { display: flex; align-items: flex-start; max-width: 1040px; margin: 0 auto; }
+  #page { flex: 1; min-width: 0; max-width: 760px; padding: 12px 20px 40px; }
+  /* The menu: the left-hand frame, without the frames. */
+  #menu { flex: none; width: 216px; position: sticky; top: 0; height: 100vh; overflow-y: auto; box-sizing: border-box;
+          background: #a8a8a8; border-right: 4px ridge #ffffff; padding: 12px 10px 24px; font-size: 16px; }
+  #menu ul { list-style: none; margin: 0 0 0.8em; padding: 0; }
+  #menu li { padding: 2px 0 2px 14px; }
+  #menu li.here { background: #000080; }
+  #menu li.here a { color: #ffffff; font-weight: bold; }
+  #menu .group { margin: 0.6em 0 0.2em; font-weight: bold; font-variant: small-caps; letter-spacing: 1px; }
+  #menu hr { margin: 0.7em 0; }
+  #menu summary { display: none; }
+  h2 { scroll-margin-top: 12px; }
+  @media (max-width: 800px) {
+    #frame { display: block; }
+    #menu { position: static; width: auto; height: auto; border-right: 0; border-bottom: 4px ridge #ffffff; }
+    #menu { padding-bottom: 10px; }
+    #menu ul { column-count: 2; }
+    #menu .center { display: none; }
+    #menu summary { display: block; text-align: center; font-weight: bold; color: #0000ee; text-decoration: underline; cursor: pointer; list-style: none; }
+    #menu summary::-webkit-details-marker { display: none; }
+  }
+  a:link { color: #0000ee; }
+  a:visited { color: #551a8b; }
+  a:active { color: #ff0000; }
+  h1 { font-size: 2.4em; margin: 0.2em 0 0; }
+  h2 { font-size: 1.6em; margin-top: 1.4em; }
+  h3 { font-size: 1.2em; }
+  hr { border: 0; border-top: 2px groove #ffffff; height: 0; margin: 1.4em 0; }
+  table { border-collapse: separate; border-spacing: 2px; border: 2px outset #ffffff; background: #c0c0c0; }
+  th, td { border: 1px inset #ffffff; padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { background: #a8a8a8; }
+  tt, code { font-family: "Courier New", Courier, monospace; font-size: 0.92em; }
+  .say { font-family: "Courier New", Courier, monospace; font-size: 0.92em; background: #d8d8d8; padding: 0 3px; }
+  .center { text-align: center; }
+  .box { border: 2px outset #ffffff; padding: 8px 14px; background: #d0d0d0; }
+  .small { font-size: 0.85em; }
+  .scroll { overflow-x: auto; }
+  ol.steps > li { margin-bottom: 0.7em; }
+</style>
+</head>
+<body>
+<div id="frame">
+
+<nav id="menu">
+  <div class="center">
+    <a href="#top"><img src="cauldy.png" width="72" height="72" alt="Cauldy"></a><br>
+    <b><a href="#top">Cauldron</a></b>
+  </div>
+  <details id="menulist" open>
+  <summary>[ Menu ]</summary>
+  <hr>
+  <p class="group">Playing</p>
+  <ul>
+    <li><a href="#board">The board</a></li>
+    <li><a href="#life">Life totals</a></li>
+    <li><a href="#commander">Commander damage</a></li>
+    <li><a href="#counters">Counters</a></li>
+    <li><a href="#dice">Dice and coins</a></li>
+    <li><a href="#undo">Time Travel</a></li>
+    <li><a href="#out">When you are out</a></li>
+  </ul>
+  <p class="group">Printing</p>
+  <ul>
+    <li><a href="#voice">Tokens by voice</a></li>
+    <li><a href="#say">More things to say</a></li>
+    <li><a href="#printers">Printers and paper</a></li>
+  </ul>
+  <p class="group">The catalogs</p>
+  <ul>
+    <li><a href="#tokens">Token index</a></li>
+    <li><a href="#cards">Card index and packs</a></li>
+  </ul>
+  <p class="group">Ways to play</p>
+  <ul>
+    <li><a href="#modes">Treachery, Archenemy</a></li>
+    <li><a href="#chaos"><b>Cauldy's Chaos Draft</b></a></li>
+  </ul>
+  <p class="group">Also</p>
+  <ul>
+    <li><a href="#settings">Settings</a></li>
+    <li><a href="#eggs">Easter eggs</a></li>
+  </ul>
+  <hr>
+  <p class="group">Get it</p>
+  <ul>
+    <li><a href="https://apps.apple.com/app/id6799283540">iPhone and iPad</a></li>
+    <li><a href="https://play.google.com/store/apps/details?id=com.yeahdef.tokenmate">Android</a></li>
+    <li><a href="https://discord.gg/Q3gyMEQ4v6">Discord</a></li>
+    <li><a href="https://www.instagram.com/cauldrontokenprinter">Instagram</a></li>
+  </ul>
+  </details>
+</nav>
+
+<div id="page">
+<a id="top"></a>
+
+<div class="center">
+  <img src="cauldy.png" width="160" height="160" alt="Cauldy, a small black cauldron with eyes, full of green ooze and three cards">
+  <h1>Cauldron</h1>
+  <p><i>The life counter that prints tokens.</i></p>
+  <p>
+    [ <a href="https://apps.apple.com/app/id6799283540">iPhone and iPad</a> ]
+    [ <a href="https://play.google.com/store/apps/details?id=com.yeahdef.tokenmate">Android</a> ]
+    [ <a href="https://discord.gg/Q3gyMEQ4v6">Discord</a> ]
+    [ <a href="https://www.instagram.com/cauldrontokenprinter">Instagram</a> ]
+  </p>
+</div>
+
+<hr>
+
+<p>
+<b>Welcome to the Cauldron home page.</b>
+Cauldron is a card game life counter for two to eight players. It sits in the middle of the
+table and keeps score. Then, when somebody makes a 2/2 Zombie and nobody has one, you hold a
+button, say "two two zombie" out loud, and a Zombie comes out of a small thermal printer a few
+seconds later, with real art on it.
+</p>
+
+<p>
+That is the whole idea, and everything else grew out of it. Cauldron can print any token, a
+copy of any card, your own photographs and drawings, hidden roles for the table, a whole
+booster pack, or three packs each for a draft of eight.
+</p>
+
+<p>
+What it prints is meant to be <b>used and recycled</b>. A printed token costs a fraction of a
+cent and takes a few seconds. Write on it, tear it in half when it dies, and drop the whole pile
+in the recycling at the end of the night. That is what makes it better than a die on a scrap of
+paper, and different from a token you would want to keep.
+</p>
+
+<p>
+It runs on iPhone, iPad and Android. It is free. There are no ads, no accounts and no data
+collection. <b>You do not need a printer to use it as a life counter</b>, and it is a good one
+on its own.
+</p>
+
+
+
+<hr>
+
+<h2 id="board">The board</h2>
+
+<p>The board is the screen you will look at all night: one seat for each player, each a color
+of its own, each turned to face the person sitting at it. The phone lies flat in the middle of
+the table and nobody has the good side. Everything a player needs is on their own seat, the
+right way up for them.</p>
+
+<p><b>Two players or a pod.</b> Hold the phone upright for a two-player duel, one seat at each
+end. Turn it on its side for a pod. Cauldron asks before it switches from one to the other, so
+handing the phone across the table to show somebody a card never costs anyone a game.</p>
+
+<p><b>Pod size.</b> Pods run from 3 to 8 players. Say <span class="say">six players</span>, or
+set it in settings. The bigger pods need a wider screen, so a phone offers fewer sizes than a
+tablet does. At 3, 5 or 7 players there is one open seat left over on the board. It belongs to
+nobody, and it is not wasted: see <a href="#out">When you are out of the game</a>.</p>
+
+<p><b>Starting life.</b> Set it in settings, or say
+<span class="say">starting life thirty</span>. Duels and pods each remember their own total, so
+20 for a duel and 40 for Commander both stay put.</p>
+
+<p><b>Game clock.</b> A small timer by the dial shows how long the game has run, for the table
+that wants to know and the one that would rather not. Say
+<span class="say">toggle clock</span> to hide or show it.</p>
+
+<p><b>New game.</b> Swipe three fingers across the board. Everybody goes back to their starting
+life and every counter is cleared.</p>
+
+<p><b>Winning.</b> When one player is left standing, the board announces the winner, with a
+fanfare, and offers a new game.</p>
+
+<p><b>It stays awake, and it remembers.</b> A life counter is looked at all the time and touched
+hardly ever, so the screen does not dim or lock while the board is up. And the game itself is
+kept: if the app is closed, the phone restarts, or somebody takes a call on it, the board comes
+back exactly as it was.</p>
+
+<hr>
+
+<h2 id="life">Life totals</h2>
+
+<p>Each seat is one big number, large enough to read from across the table. The whole seat is
+the button.</p>
+
+<ul>
+  <li><b>Tap the upper half</b> of your seat to gain 1. <b>Tap the lower half</b> to lose 1.
+      "Upper" is from where you are sitting, so it is the same for everyone.</li>
+  <li><b>Tap with two fingers</b> to move by 5 at a time.</li>
+  <li><b>Hold one finger</b> and the total keeps moving, faster the longer you hold. Good for
+      the turn somebody gains 37.</li>
+</ul>
+
+<p><b>You can see what just happened.</b> When a total changes, a faded copy of the old number
+and the size of the change (such as &minus;7) hang beside the new one for a moment. Nobody has
+to ask "wait, what were you at?"</p>
+
+<p><b>Going out.</b> When a player reaches zero their seat says DEAD. If it was poison or
+commander damage that did it, the seat says that instead, so there is no argument later about
+how it happened.</p>
+
+<hr>
+
+<h2 id="commander">Commander damage</h2>
+
+<p>Commander damage is the thing most life counters make you dig through a menu for. Here it is
+one movement: <b>drag one finger from the attacker's seat into the defender's.</b></p>
+
+<p>A tally appears on the defender's seat, on the edge facing whoever dealt it, so a glance at
+your own seat shows who has hit you and for how much. The life comes off at the same time, so
+you never have to enter the same hit twice. Each further drag adds one more. Tap a tally to take
+one back if it was a mistake.</p>
+
+<p>Twenty-one from a single commander puts a player out, and the seat says that is what did
+it.</p>
+
+<p><b>Partners.</b> If a player has two commanders, say "partners" and the color of their seat:
+<span class="say">partners blue</span>. Their damage is then kept as two numbers, one for each
+commander. Start the drag from the upper half of their seat for one commander and the lower half
+for the other. Say it again to turn it off.</p>
+
+<hr>
+
+<h2 id="counters">Counters and designations</h2>
+
+<p>There are no buttons for these. <b>You draw a letter on a seat with one finger</b>, as if
+writing on the table, and that seat gets the counter. A drawn shape carries its own meaning in
+a way that digging through a menu never does, and it keeps the board free of clutter.</p>
+
+<div class="scroll">
+<table>
+  <tr><th>Draw</th><th>You get</th></tr>
+  <tr><td><tt>^</tt></td><td><b>Monarch.</b> The tip of a crown. There is only one, so drawing it on a seat takes it from whoever had it. If the monarch dies, the crown passes clockwise.</td></tr>
+  <tr><td><tt>S</tt></td><td><b>Poison.</b> Ten puts a player out.</td></tr>
+  <tr><td><tt>N</tt></td><td><b>Energy</b></td></tr>
+  <tr><td><tt>Z</tt></td><td><b>Experience</b></td></tr>
+  <tr><td><tt>D</tt></td><td><b>Rad</b></td></tr>
+  <tr><td><tt>C</tt></td><td><b>City's blessing</b></td></tr>
+  <tr><td><tt>L</tt></td><td><b>Enduring story</b></td></tr>
+</table>
+</div>
+
+<p>Counters that go up and down (poison, energy, experience, rad) appear as small badges under
+the life total. The ones you either have or do not have
+(monarch, city's blessing) appear on the side of the seat.</p>
+
+<p>The shapes are not all the obvious letters, and that is on purpose. Each was chosen because
+a finger can draw it quickly and the board can tell it apart from all the others, and from a
+drag for commander damage.</p>
+
+<hr>
+
+<h2 id="dice">Dice and coins</h2>
+
+<p>Dice are always within reach, and they roll in the middle of the board where the whole table
+can see the result.</p>
+
+<ul>
+  <li><b>Hold two fingers</b> anywhere on the board: roll a d6.</li>
+  <li><b>Hold three fingers:</b> roll a d20.</li>
+  <li><b>Say it</b> for anything else: <span class="say">roll a d12</span>,
+      <span class="say">roll a d100</span>, <span class="say">flip a coin</span>. Sizes are d4,
+      d6, d8, d10, d12, d20 and d100.</li>
+  <li><b>Planechase:</b> <span class="say">roll the planar die</span>.</li>
+</ul>
+
+<p>The most recent 12 rolls stay in a ring around the dial, so "who rolled highest?" can be
+settled by looking, after everyone has rolled.</p>
+
+<hr>
+
+<h2 id="undo">Time Travel</h2>
+
+<p>Somebody taps the wrong seat. Somebody swipes three fingers and wipes the game. It happens at
+every table, and Cauldron lets you wind the game backwards.</p>
+
+<p><b>Hold the dial in the middle and circle it with your finger</b>, like winding a clock
+back. The first full turn counterclockwise arms it and the dial reads UNDO. After that, every half
+turn steps the game back one move, and the board shows you the past as you go. Turn clockwise to
+come forward again. Lift your finger when the board looks right and that is where the game
+carries on from. Wind back to where you started and nothing changes.</p>
+
+<p>A step is one whole change, not one tap: holding a finger down to lose 12 life is a single
+step, not twelve. And it reaches back through a new game into the game before, so an accidental
+reset is not the end of the world.</p>
+
+<hr>
+
+<h2 id="voice">Printing tokens by voice</h2>
+
+<p>This is what Cauldron was made for. You do not look anything up or type anything. You say
+what you need, the way you would say it to the person across the table.</p>
+
+<ol>
+  <li>Press and <b>hold</b> the dial in the middle of the board (it reads SPEAK THY TOKEN).</li>
+  <li>Wait for the rising beep.</li>
+  <li>Say the token. Keep holding until your words show on screen.</li>
+  <li>Let go. The card appears on the board, its name is read out in a robot voice from another
+      decade, and it prints.</li>
+</ol>
+
+<h3>What to say</h3>
+<ul>
+  <li><b>By what it is:</b> <span class="say">two two zombie</span>,
+      <span class="say">two two black zombie knight with menace</span>,
+      <span class="say">one one dog</span>. Power and toughness, color, creature types and
+      abilities, in whatever order they come out of your mouth.</li>
+  <li><b>By name:</b> <span class="say">treasure</span>, <span class="say">food</span>,
+      <span class="say">clue</span>, and every other named token.</li>
+  <li><b>Copies of a card:</b> <span class="say">copy scute swarm</span> prints a copy token of
+      that card, with its art and its words.</li>
+  <li><b>Emblems and dungeons</b> print too.</li>
+  <li>You do not need to say "token" at the end.</li>
+</ul>
+
+<p><b>Real art, and a different one each time.</b> Most tokens have been painted many times over
+the years. Cauldron prints one of them at random, so a board full of Zombies is not a board of
+the same Zombie. You can choose which paintings it draws from: see
+<a href="#tokens">the token index</a>.</p>
+
+<p><b>The line underneath.</b> Under each token is its color, written out in words (RED GREEN),
+because a thermal printer has no colors and it matters which Elemental is which.</p>
+
+<p><b>More copies.</b> Tap the card on screen for another copy, up to five more. Making six
+Goblins is one word and five taps.</p>
+
+<p><b>It works offline.</b> Cauldron keeps its own index of every token on the phone, so finding
+one does not need a connection. Once a printer is paired it also prepares and keeps the artwork
+ready to print, so a basement, a convention hall or an airplane is no obstacle. Settings shows
+how much is stored.</p>
+
+<p><b>Tokens that were never printed.</b> Some tokens have never had an official card of their
+own. The Cauldron Art Crew, a group of volunteer artists, draws them, and each one is numbered
+and credited to whoever drew it. They include Banana, Giant Bird, Zeppelin, Tetravite, Djinn,
+Goblin Scout, Camarid, Urami, Elemental Cat, etc. It grows until we design them all.</p>
+
+<hr>
+
+<h2 id="say">More things to say</h2>
+
+<p>The dial listens for more than tokens. All of these are said the same way: hold the dial,
+wait for the beep, speak, let go.</p>
+
+<p><b>Your own photo for a token.</b> Add "camera" after any token:
+<span class="say">one one dog camera</span>. The camera opens, you take a photograph, and it
+prints at once as that token. From then on that photo is your picture for it. Your own dog can
+be every Dog you ever make.</p>
+
+<p><b>A photo of anything.</b> Say <span class="say">camera</span> on its own to take a picture
+and print it just as it is.</p>
+
+<p><b>Draw a token.</b> Say <span class="say">freestyle</span> and the board becomes a sheet of
+paper. Draw anything with your finger and print it. For the token nobody has ever heard of, or a
+note to the player on your left.</p>
+
+<p><b>Creature labels.</b> Small slips for the things that happen to a creature and are written
+nowhere on the card. Say the word and lay the slip on the creature: Goaded (or
+<span class="say">goaded by red</span>, to say who did it), Phased Out, Suspected, Monstrous,
+Renowned, Adapted, Summoning Sick, Exerted, Stun, Indestructible, Shield, Finality, Prepared,
+Trample, Flying, Deathtouch, First Strike, Double Strike, Vigilance, Hexproof, Lifelink, Menace,
+Reach. Each label carries a one-line reminder of the rule, for the player who has forgotten
+what Suspected does.</p>
+
+<p><b>Floating mana.</b> Say <span class="say">floating mana</span> for a strip with the five
+colors on it. Put a small die on each color you are holding, and stop trying to remember it
+through somebody else's turn.</p>
+
+<p><b>Planechase.</b> <span class="say">planeswalk</span> turns over the next plane from a
+planar deck that Cauldron shuffles for you, sized for your table, and prints it. "Plane" plus a
+name prints one in particular: <span class="say">plane Academy at Tolaria West</span>. With
+<span class="say">roll the planar die</span>, that is a whole game of Planechase with no deck to
+carry.</p>
+
+<p><b>Momir.</b> <span class="say">momir five</span> prints a random creature with mana value
+5. Momir Basic, the format where every creature is a surprise, played on paper.</p>
+
+<p><b>Favorites.</b> <span class="say">print favorites</span> prints every artwork you have
+hearted, one after another. Good for making up a token box before you leave the house.</p>
+
+<p><b>Share the app.</b> <span class="say">QR download</span> prints a slip with the store
+links on it, to hand to the person who has been asking about the printer all night.</p>
+
+<p><b>Setup by voice.</b> <span class="say">connect printer</span>,
+<span class="say">settings</span>, <span class="say">token index</span>,
+<span class="say">card index</span>, <span class="say">six players</span>,
+<span class="say">starting life thirty</span>.</p>
+
+<hr>
+
+<h2 id="tokens">The token index</h2>
+
+<p>Hold <b>four fingers</b> on the board, or say <span class="say">token index</span>. The board
+turns over, and on the other side is the full catalog: every token there is, every painting of
+each, and the place where you decide what Cauldron prints for you.</p>
+
+<p><b>Find.</b> Type in the search line and narrow it with the strip of filters below. Search by
+token name, by the card that makes it, or by artist. Each token shows exactly what to say to ask
+for it out loud, which is the quickest way to learn the voice.</p>
+
+<p><b>Choose your artwork.</b> Swipe sideways through all the paintings of a token. PRINT prints
+the one in the middle. And you can teach Cauldron your taste:</p>
+<ul>
+  <li><b>Tap</b> an artwork to take it out of the random pool, for the one you never want to
+      see again. Tap again to put it back.</li>
+  <li><b>Long-press</b> an artwork to always print that one (&#9733;). Every Treasure you make
+      will be your Treasure.</li>
+  <li><b>RESET</b> puts everything back as it was.</li>
+</ul>
+
+<p><b>How the random pick works.</b> A switch chooses SHUFFLE (every artwork once before any
+repeats), RANDOM, or SEQUENTIAL. Another keeps Universes Beyond art out of random picks, for
+tables that would rather their Soldiers were not from a TV show.</p>
+
+<p><b>Your own artwork.</b> Swipe to the + card at the end of a token's gallery, then choose
+PHOTOS or CAMERA. A switch sets the token's name and rules in type under your picture, or prints
+the picture as it is.</p>
+
+<p><b>Your own tokens.</b> CREATE makes a token that does not exist anywhere else. Give it a
+name, a type and its words, and add a picture afterward if you like. From then on it is in the
+index with all the others: it turns up in searches, it can be hearted, and you can ask for it by
+name with the dial. For the homebrew cube, the custom commander, and the inside joke.</p>
+
+<p><b>Favorites.</b> Drag the &hearts; onto an artwork to heart it. From your favorites you can
+print one, print them all, or share them as a single picture or a short video.</p>
+
+<hr>
+
+<h2 id="cards">The card index, and booster packs</h2>
+
+<p>Say <span class="say">card index</span>. Where the token index is every token, this is
+<b>every card</b>: tens of thousands of them, each with every painting it has ever had. It is
+for proxies at the kitchen table, for trying a deck before buying it, and for the card you left
+at home.</p>
+
+<p><b>Find.</b> Search by name. Filter by color and by set.</p>
+
+<p><b>Three ways to print a card.</b></p>
+<ul>
+  <li><b>ART CROP:</b> the painting, with the card's name, cost, type and rules set in clear
+      type under it. The easiest to read on thermal paper.</li>
+  <li><b>FULL CARD:</b> the whole card as it was printed, frame and all.</li>
+  <li><b>TEXT ONLY:</b> the words and nothing else. The least paper and the quickest.</li>
+</ul>
+
+<p><b>Two-sided cards.</b> A card with two sides prints as two pieces of paper, the front and
+then the back.</p>
+
+<p><b>Print queue.</b> Add cards to a queue as you browse, see the whole list, and print it in
+one go. A deck list can be brought in with IMPORT, so a hundred-card Commander deck does not have to be
+found a card at a time. EXPORT takes the list out again.</p>
+
+<p><b>Booster packs.</b> In the list of sets, a set that was sold in boosters has a PACK button.
+Press it and Cauldron deals one booster of that set, at that booster's real odds (the right
+number of commons, uncommons and a rare, with the right chance of something better) and prints
+it. Open a pack of a set that has been out of print for twenty-five years, for the price of a
+few feet of receipt paper.</p>
+
+<p class="small">Cards printed this way are for playing with friends and trying things out.
+They are thermal paper, they are smaller than a real card, and nobody will ever mistake one for
+the real thing.</p>
+
+<hr>
+
+<h2 id="modes">Game modes</h2>
+
+<p>Two ways to play a pod that need hidden or special cards, which is exactly what a printer in
+the middle of the table is good at. Both are set in settings, on one row. Turning one on turns
+the other off.</p>
+
+<h3>Treachery</h3>
+<p>The hidden-role variant from <a href="https://mtgtreachery.net/">mtgtreachery.net</a>, for
+pods of 4 to 8. One Leader, known to all. Guardians who protect the Leader, Assassins who want
+the Leader dead, and a Traitor who wants everybody dead, none of them known to anyone. Normally
+it needs a deck of identity cards and somebody to deal them. Cauldron is both.</p>
+
+<p>Say <span class="say">treachery</span>, or choose it in settings: simple is the four roles
+only, advanced uses all 62 identity cards with their own abilities.</p>
+<ol>
+  <li>Cauldron deals every seat a role in secret.</li>
+  <li>The dial reads DRAG FOR ROLE. Everyone else closes their eyes. Hold the dial, drag to your
+      own seat, and let go. Your card prints, for you alone.</li>
+  <li>Keep your card face down. Flip it over when you want to unveil.</li>
+  <li>Once every seat has its card, the dial goes back to printing tokens.</li>
+</ol>
+<p>The Leader's seat gets a green outline once their card has printed. When a player is out, the
+board shows what they were. And the board knows who is on which side, so it announces the side
+that wins.</p>
+
+<h3>Archenemy</h3>
+<p>One player against the whole table, for pods of 3 to 8. The archenemy has double the life and
+a deck of schemes, oversized cards that do something dreadful every turn. Cauldron keeps the
+scheme deck, so nobody has to own one.</p>
+
+<p>Say <span class="say">archenemy</span>, or choose it in settings.</p>
+<ol>
+  <li>Everyone starts at 20 and the dial reads DRAG FOR ARCHENEMY.</li>
+  <li>The archenemy holds the dial and drags to their seat. They go to 40 and their seat is
+      outlined.</li>
+  <li>On each of the archenemy's turns, say <span class="say">scheme</span> to print the next
+      card from their scheme deck.</li>
+</ol>
+<p>The team wins when the archenemy is out. The archenemy wins when the whole team is.</p>
+
+<hr>
+
+<h2 id="printers">Printers and paper</h2>
+
+<p>Cauldron prints on small thermal printers, the kind made for shipping labels and shop
+receipts. They use no ink. The paper is cheap and the printer is the only thing you buy. Four
+are supported, and they suit different tables.</p>
+
+<div class="scroll">
+<table>
+  <tr><th>Printer</th><th>Connects by</th><th>What it is like</th></tr>
+  <tr><td><b>Phomemo M110</b></td><td>Bluetooth</td><td>The smallest and the cheapest, and it runs on its own battery. The one to start with for tokens at the table. NOTE: The manufacturer does produce an alternate version of this model under the exact same model number which, frustratingly, has an RFID lockout. If you get this version (you will know because it has spring-loaded arms inside), return it and try to buy from another seller/region, or buy a different supported printer.</td></tr>
+  <tr><td><b>Munbyn FM226</b></td><td>Bluetooth</td><td>Larger, quieter and faster than the M110.</td></tr>
+  <tr><td><b>Brother QL-710W and QL-810W</b></td><td>Wi-Fi</td><td>Sharp, and cuts every token off the roll for you. Needs a wall outlet, so it suits a game night at home.</td></tr>
+  <tr><td><b>NETUM NT-861</b></td><td>Bluetooth</td><td>The fastest by a long way, on wide receipt paper. Cuts every card to fit a card sleeve. A whole Commander deck in about three minutes. <b>The only one that prints booster packs and chaos drafts.</b></td></tr>
+</table>
+</div>
+
+<p><b>Pairing.</b> Open settings and tap Printer Scan, or hold the dial and say
+<span class="say">connect printer</span>. If there is only one printer nearby, Cauldron takes
+it without asking you to pick from a list. It knows which printer it has found and sets itself
+up for it.</p>
+
+<p><b>Paper.</b> The printers come with very little paper, or none. Settings lists the rolls
+that fit each printer, with a rough cost per token, and links to buy the exact ones. The wrong
+width of roll is the most common mistake. When in doubt, buy from the links in the app.</p>
+
+<p><b>Sleeves.</b> Paper is paper: it does not shuffle. Settings also lists the card sleeves
+that fit what each printer makes.</p>
+
+<p><b>If something goes wrong.</b> An open cover, an empty roll or a printer that has gotten too
+warm does not lose your print. Cauldron tells you what the matter is, in words, and carries on
+once it is fixed.</p>
+
+<p><b>You do not need the printer maker's app.</b> Cauldron talks to the printer directly. If
+the maker's app is running, close it before printing: it stays connected to the same printer and
+prints can come out blank. Cauldron warns you when it sees another app holding the printer.</p>
+
+<p><b>Blank paper.</b> If paper feeds but nothing is printed on it, flip the roll over. Only one
+side of thermal paper prints.</p>
+
+<p><b>Gesture guide.</b> Settings can print a small reference card with every gesture and phrase
+on it. Leave it on the table for the first few games.</p>
+
+<div class="box">
+<p><b>How Cauldron stays free.</b> Please use the links in the app when you buy a printer or
+paper. They are Amazon affiliate links, and they are the whole of how the app is paid for. That
+is how it can have no ads and never charge you for new features in a nickel-and-dimey way. Next time you need new sleeves, buy a pack from the app?</p>
+</div>
+
+<hr>
+
+<h2 id="settings">Settings</h2>
+
+<p>Swipe <b>two fingers</b> across the board, or say <span class="say">settings</span>. There is
+no gear icon on the board, on purpose: the board is only the game. The first time you open
+Cauldron, a short tutorial teaches you this swipe before anything else.</p>
+
+<ul>
+  <li><b>Board format:</b> auto-rotate between duel and pod, or hold it to one.</li>
+  <li><b>Pod size and starting life.</b></li>
+  <li><b>Treachery and Archenemy.</b></li>
+  <li><b>Printer:</b> scan and pair, paper width, and how dark it prints.</li>
+  <li><b>Offline cache:</b> how much is stored on the phone.</li>
+  <li><b>Speech language:</b> US, UK, Australia, Canada, India and other English regions, so it
+      hears your accent.</li>
+  <li><b>the printable gesture guide</b>, and the way in
+      to the token index and the card index.</li>
+  <li><b>Feedback and bug reports.</b> Printer details are sent along with your report, so a
+      problem can be found.</li>
+</ul>
+
+<hr>
+
+<h2 id="out">When you are out of the game</h2>
+
+<p>In a pod, somebody is always the first to die, and then they sit and watch for forty
+minutes. Cauldron has something for them.</p>
+
+<p>Tap the DEAD plate on your seat. Cauldron asks whether the match was fun. If you say no, you
+get a small game to play on your own seat until the match ends. They are quiet, so the table can
+go on playing, and there are several of them. The open seat at a table of 3, 5 or 7 offers one
+too.</p>
+
+<hr>
+
+<h2 id="chaos">How to run a successful Cauldy's Chaos Draft</h2>
+
+<div class="center">
+  <img src="cauldy.png" width="96" height="96" alt="Cauldy">
+</div>
+
+<p>A chaos draft is a draft where every pack is from a different set: anything, from any year.
+It is a huge amount of fun and almost nobody can afford one, because the old packs are the fun of it
+and the old packs cost what a car does.</p>
+
+<p><b>In Cauldy's Chaos Draft the packs are printed.</b> A wheel holding every booster there has
+ever been is spun for each player, three times. Whatever it stops on is dealt at that booster's
+real odds and comes out of the printer in a wrapper with the player's number on it.</p>
+
+<h3>What you need</h3>
+<ul>
+  <li><b>4 or 8 players.</b> The app runs a draft for either. With 8, everybody takes one card a
+      pick as usual. With 4, everybody takes <b>two</b> cards per pick.</li>
+  <li><b>A NETUM NT-861 printer</b>, paired in Cauldron. It is the one printer that cuts cards
+      to sleeve size. Without it the wheel still spins, and nothing prints.</li>
+  <li><b>Paper.</b> Each pack is about 3.5 feet of 80mm (3&#8539; inch) roll. A 4-player draft
+      uses about 42 feet and an 8-player draft about 84. One ordinary 230 foot roll does five
+      4-player drafts or two 8-player ones. Put in a fresh roll if you are not sure.</li>
+  <li><b>Card sleeves</b>, standard size, <b>45 for each player</b>, and three more each to
+      hold their wrapped packs shut.</li>
+  <li><b>45 real cards for each player</b> that nobody minds using as stiffeners: commons or
+      basic lands.</li>
+  <li><b>A charged phone, plugged in if you can.</b> It has to stay awake with Cauldron open
+      while a pack prints.</li>
+</ul>
+
+<h3>The method</h3>
+
+<p>Printed cards are thin paper, a little smaller than a real card. Sleeved in front of a real
+card they shuffle, pass and play like the real thing. Do the sleeving <b>before</b> anybody sits
+down and the evening runs itself.</p>
+
+<h3>Part one: the chaos</h3>
+<p>All of the spinning and printing happens first, in one go, with everybody standing around
+the phone. Nobody opens anything yet.</p>
+
+<ol class="steps">
+  <li><b>Pre-sleeve 45 commons for each player, with the backs facing out.</b>
+      Put each common or basic land into a sleeve turned around, so that its <i>back</i> shows
+      through the clear front. Nobody should be able to tell what the real card is, and nobody
+      will mistake it for one of their picks. Each player gets a stack of 45.</li>
+
+  <li><b>Open the chaos draft.</b>
+      In Cauldron, say <span class="say">card index</span>. Then press and hold the words
+      CARD INDEX at the top of the screen and keep holding, for about six seconds, until the
+      screen comes apart. Choose 4 or 8 and press BEGIN CHAOS.</li>
+
+  <li><b>Spin for every pack.</b>
+      Pass the phone around. Each player in turn presses SUBMIT TO CHAOS, watches the wheel,
+      and waits for their pack to print before the next player spins. It goes around the table
+      three times: everybody's pack 1, then everybody's pack 2, then everybody's pack 3. Each
+      pack takes under a minute.</li>
+
+  <li><b>Make up each pack as it comes out.</b>
+      The dark slip comes out first, then the cards, joined at the cuts like a strip of stamps.
+      Fold the strip up on itself at the cuts. Wrap the dark slip around the stack so nothing
+      shows, and slide the whole thing into a spare sleeve to hold it shut. The slip says whose
+      pack it is, which booster it was, and when it was dealt. No peeking.</li>
+
+  <li><b>Carry on until the app says CHAOS COMPLETE.</b>
+      Every player now has three wrapped packs in front of them, and the phone's work is
+      done.</li>
+</ol>
+
+<h3>Part two: the draft</h3>
+<p>Now everybody sits down, and it is a draft like any other.</p>
+
+<ol class="steps" start="6">
+  <li><b>Everybody opens their first pack.</b>
+      Tear the cards apart at the cuts, and slip each one into the <i>first 15</i> of your
+      pre-sleeved commons, in front of the real card, so the printed card shows through the
+      clear front.</li>
+
+  <li><b>Draft pack 1 like normal.</b>
+      Pick a card, pass the rest to your left, and carry on until the pack is gone. With four
+      players, pick two each time.</li>
+
+  <li><b>Open your second pack</b>, sleeve it into your <i>next 15</i> pre-sleeved commons, and
+      draft it, passing to the right this time.</li>
+
+  <li><b>And once more with your third pack</b> and your last 15, passing to the left.</li>
+
+  <li><b>Build decks and play.</b>
+      Forty cards is the usual size for a draft deck. Basic lands come from your own
+      collection.</li>
+</ol>
+
+<h3>Things worth knowing</h3>
+<ul>
+  <li><b>Not every pack is 15 pieces of paper.</b> Some old boosters were smaller, some new ones
+      are bigger, and a card with two sides prints as two pieces. Sleeve a handful of spare
+      commons per player so nobody runs short.</li>
+  <li><b>Two-sided cards.</b> The line under each side says <tt>SIDE 1 OF 2</tt> or
+      <tt>SIDE 2 OF 2</tt>. They are one card. Put both in the same sleeve, side 1 in front, and
+      pass them as one pick.</li>
+  <li><b>Everything is in English.</b> A few real boosters held cards in Japanese, Phyrexian or
+      Elvish. Cauldron deals the English printing of those, because on a card this size being
+      able to read it matters more.</li>
+  <li><b>No pack comes up twice</b> in the same draft.</li>
+  <li><b>Wait for PACK COMPLETE.</b> The voice says it when a pack has finished printing. Do not
+      lock the phone or switch apps while one is printing.</li>
+  <li><b>If the printer stops</b> (no paper, an open cover), fix it and press CARRY ON PRINTING.
+      The pack picks up where it stopped and nothing is dealt again.</li>
+  <li><b>It is loud on purpose.</b> There is music, and it gets more excited each round. Turn
+      the phone's volume down if you don't like it.</li>
+</ul>
+
+<hr>
+
+<h2 id="eggs">Easter eggs</h2>
+<p>There are a large number of easter eggs hidden throughout Cauldron, and it is unlikely that
+all of them have been found. More are added as the app grows. They serve no purpose in the game.
+They are only there to be fun, and this page is not going to tell you where any of them are.</p>
+
+<hr>
+
+<div class="center small">
+<p>
+  [ <a href="#top">Back to the top</a> ]
+  [ <a href="https://discord.gg/Q3gyMEQ4v6">Discord</a> ]
+  [ <a href="https://www.instagram.com/cauldrontokenprinter">Instagram</a> ]
+  [ <a href="https://ko-fi.com/cauldrontokenprinter">Buy the developer a coffee</a> ]
+</p>
+<p>Card data and images are provided by <a href="https://scryfall.com/">Scryfall</a>.
+Treachery is by <a href="https://mtgtreachery.net/">mtgtreachery.net</a>.</p>
+<p>Cauldron is unofficial Fan Content permitted under the Fan Content Policy. Not approved or
+endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast.
+&copy; Wizards of the Coast LLC.</p>
+<p><i>This page is best viewed with any browser. Last updated October 2026.</i></p>
+</div>
+
+</div>
+</div>
+<script>
+// Mark the section being read in the menu.
+(function () {
+  var links = {};
+  document.querySelectorAll('#menu li > a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var heads = Array.prototype.slice.call(document.querySelectorAll('h2[id]'));
+  function mark() {
+    var here = '';
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top < 120) here = h.id; });
+    Object.keys(links).forEach(function (id) { links[id].parentNode.className = id === here ? 'here' : ''; });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+  // On a phone the menu starts folded away, and folds again once it has been used.
+  var list = document.getElementById('menulist');
+  var narrow = window.matchMedia('(max-width: 800px)');
+  function fold() { list.open = !narrow.matches; }
+  fold();
+  narrow.addEventListener('change', fold);
+  list.addEventListener('click', function (e) { if (narrow.matches && e.target.closest('a')) list.open = false; });
+})();
+</script>
+</body>
+</html>

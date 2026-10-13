@@ -66,6 +66,7 @@
   <hr>
   <ul>
     <li><a href="#videos"><b>Video tutorials</b></a></li>
+    <li><a href="#new">What is new</a></li>
   </ul>
   <p class="group">Playing</p>
   <ul>
@@ -90,7 +91,7 @@
   </ul>
   <p class="group">Ways to play</p>
   <ul>
-    <li><a href="#modes">Treachery, Archenemy</a></li>
+    <li><a href="#modes">Treachery, Archenemy, Horde</a></li>
     <li><a href="#chaos"><b>Cauldy's Chaos Draft</b></a></li>
   </ul>
   <p class="group">Also</p>
@@ -184,6 +185,43 @@ printer, the gestures, and printing a token by voice. More go up on
   </div>
 </div>
 <script async src="https://www.instagram.com/embed.js"></script>
+
+<hr>
+
+<h2 id="new">What is new</h2>
+
+<p class="small">October 12, 2026</p>
+
+<ul>
+  <li><b>Two more printers.</b> The Rollo Wireless, which is now the fastest printer Cauldron
+      drives, and the Rongta RPP300, which prints a full-size card on a battery. See
+      <a href="#printers">Printers and paper</a>.</li>
+  <li><b>Long jobs are much faster.</b> Each small printer was run on a desk until it
+      overheated, over and over, and Cauldron now paces each one by what it can really take. A
+      hundred-card deck on the M110 took about 50 minutes and now takes about 12. The Munbyn
+      does one in about 15.</li>
+  <li><b>Horde Magic.</b> Everybody at the table on one side, against a deck nobody plays.
+      See <a href="#modes">Game modes</a>.</li>
+  <li><b>Any card by voice.</b> Say <span class="say">card</span> and then its name.</li>
+  <li><b>A label that says anything.</b> Say <span class="say">marker</span> and then your own
+      words.</li>
+  <li><b>A turn timer.</b> Whose turn it is and how long it has taken.</li>
+  <li><b>Deck lists from a file.</b> IMPORT in the print queue reads a .txt or .csv file as well
+      as the clipboard.</li>
+  <li><b>Every kind of booster.</b> Draft, play, set, collector and Jumpstart boosters each have
+      their own button under a set, and the button fills as the pack prints.</li>
+  <li><b>Packs that all fit a sleeve.</b> Every card in a pack is the same size and lies the
+      same way, however it is printed.</li>
+  <li><b>Booster packs and chaos drafts on the Rollo</b> as well as the NETUM.</li>
+  <li><b>Chaos draft.</b> Cards print with the rules set in clear type by default, a draft can
+      be kept to Standard, Pioneer, Modern or Legacy, and leaving one partway asks first.</li>
+  <li><b>Card printing.</b> Reminder text can be left off, and the tap symbol is drawn as an
+      arrow.</li>
+  <li><b>Fixed.</b> M110 cards that came out starting twice. A crash when the board turned back
+      over with commander damage on it. Momir Vig lagging. Settings that did not take when you
+      left by tapping outside the panel. Pairing a new printer while another was paired.
+      Spoken labels printing nothing after a change of printer.</li>
+</ul>
 
 <hr>
 
@@ -417,6 +455,11 @@ Trample, Flying, Deathtouch, First Strike, Double Strike, Vigilance, Hexproof, L
 Reach. Each label carries a one-line reminder of the rule, in case you've forgotten
 what Suspected does (I have no idea and I wrote the app).</p>
 
+<p><b>Your own words on a label.</b> For the thing that is one card's alone and on no list,
+say <span class="say">marker</span> and then whatever it should say:
+<span class="say">marker dealt combat damage by Gollum</span>. It prints as a label like the
+others, with your words on it. A long phrase goes onto as many lines as it needs.</p>
+
 <p><b>Floating mana.</b> Say <span class="say">floating mana</span> for a WUBRG strip.
 Put a small die on each color you are holding, and stop trying to remember it
 through somebody else's turn.</p>
@@ -426,6 +469,20 @@ planar deck that Cauldron shuffles for you, sized for your table, and prints it.
 name prints one in particular: <span class="say">plane Academy at Tolaria West</span>. With
 <span class="say">roll the planar die</span>, that is a whole game of Planechase with no deck to
 carry. Omit/Include planes in the <a href="#tokens">Token Index</a>.</p>
+
+<p><b>Any card, by name.</b> Say <span class="say">card</span> and then the card:
+<span class="say">card sol ring</span>. Cauldron says back the card it took you to mean, since
+card names are strange and a phone has not read them, and prints it the way the
+<a href="#cards">card index</a> is set to print. A card with two sides prints both. "Card" has
+to be the first word: <span class="say">goblin card</span> is still a Goblin token.</p>
+
+<p><b>Turn timer.</b> Say <span class="say">turn timer</span>. The dial asks who goes first, and
+the seat that is tapped has the first turn. A PASS button then sits beside the life total of
+whoever's turn it is, counting. Tap it and the turn goes to the next player still in the game.
+Hold it to stop the clock for something the whole table has to deal with, and tap to start it
+again. It only counts while the board is on screen, a pass can be undone with
+<a href="#undo">Time Travel</a> like anything else, and when the game is over the win shows whose
+turns took how long. Say it again to put it away.</p>
 
 <p><b>Momir Vig.</b> <span class="say">momir five</span> prints a random creature with mana value
 5. The format where every creature is a surprise, finally played on paper.</p>
@@ -503,19 +560,29 @@ trying a deck before buying it, and for that card you left at home you meant to 
   <li><b>FULL CARD:</b> the whole card as it was printed, frame and all.</li>
   <li><b>TEXT ONLY:</b> the words and nothing else. The least paper and the quickest.</li>
 </ul>
+<p>Art crop and text only can each be printed without reminder text, for a table that knows what
+flying does.</p>
 
 <p><b>Two-sided cards.</b> A card with two sides prints as two pieces of paper, the front and
 then the back.</p>
 
 <p><b>Print queue.</b> Add cards to a queue as you browse, see the whole list, and print it in
 one go. A deck list can be brought in with IMPORT, so a hundred-card Commander deck does not have to be
-found a card at a time. EXPORT takes the list out again.</p>
+found a card at a time: paste one copied from Moxfield, Archidekt, Scryfall or anywhere else, or
+choose a .txt or .csv file from your phone. EXPORT takes the list out again.</p>
 
-<p><b>Booster packs.</b> In the list of sets, a set that was sold in boosters has a PACK button.
-Press it and Cauldron deals one booster of that set, at that booster's real odds (the right
-number of commons, uncommons and a rare, with the right chance of something better) and prints
-it. Open a pack of a set that has been out of print for twenty-five years, for the price of a
-few feet of receipt paper.</p>
+<p><b>Booster packs.</b> In the list of sets, a set that was sold in boosters has a row of
+buttons under its name, one for each kind of booster it came in: DRAFT, PLAY, SET, COLLECTOR,
+JUMPSTART. Press one, and again to confirm, and Cauldron deals one booster of that set and that
+kind, at its real odds (the right number of commons, uncommons and a rare, with the right chance
+of something better) and prints it. The button fills as the pack comes out. Open a pack of a set
+that has been out of print for twenty-five years, for the price of a few feet of receipt
+paper.</p>
+
+<p>Every card in a pack is the same size, made to fit a card sleeve, and lies the same way
+across the roll, whichever of the three ways it is printed. A card with a lot to say has its
+picture cropped and then its type set smaller until it fits. Packs print on the NETUM NT-861,
+which cuts each card off, and on the Rollo, which prints the pack as one strip to cut apart.</p>
 
 <p class="small">Cards printed this way are for playing with friends and trying things out.
 They are thermal paper, they are smaller than a real card, and nobody will ever mistake one for
@@ -525,9 +592,9 @@ the real thing. These are not for sale, they are playtest cards.</p>
 
 <h2 id="modes">Game modes</h2>
 
-<p>Two ways to play a pod that need special cards, which is exactly what a printer in
-the middle of the table is good at. Both are set in settings, on one row. Turning one on turns
-the other off.</p>
+<p>Three ways to play that need special cards, which is exactly what a printer in
+the middle of the table is good at. All three are set in settings, on one row. Turning one on
+turns the others off.</p>
 
 <h3>Treachery</h3>
 <p>The hidden-role variant from <a href="https://mtgtreachery.net/">mtgtreachery.net</a>, for
@@ -563,12 +630,35 @@ scheme deck, so nobody has to own one.</p>
 </ol>
 <p>The team wins when the archenemy is out. The archenemy wins when the whole team is.</p>
 
+<h3>Horde</h3>
+<p>Horde Magic, the cooperative format by Peter Knudson: one to four players on the same side,
+against a deck that plays itself. Normally it needs a hundred-card Horde deck, sixty of them
+Zombie tokens, that nobody owns. Cauldron is the deck. It uses Knudson's original Zombie
+list.</p>
+
+<p>Say <span class="say">horde for three</span>, or choose it in settings and set how many are
+playing.</p>
+<ol>
+  <li>The board is two seats. Yours is the survivors, with one life total for all of you: 20 for
+      each player. The other is the Horde, and its number is the cards left in its library.</li>
+  <li>The survivors take three turns. After that, on each of the Horde's turns, tap HORDE'S TURN
+      or say <span class="say">horde</span>. It turns cards over until one is not a token. The
+      tokens appear on its seat, and the card it cast is printed.</li>
+  <li>The Horde has no life. Tap its number once for each point of damage you deal it, or hold
+      for a run of them, and that many cards come off its library.</li>
+  <li>Tap one of its tokens to kill it. The faint tiles at the end add one, for the Zombies its
+      own cards make.</li>
+</ol>
+<p>The survivors win when the Horde has no library and nothing left standing. The Horde wins when
+your life runs out. <a href="#undo">Time Travel</a> takes back a turn, a point of damage or a
+kill like anything else. Settings can print the Horde's tokens as well as showing them.</p>
+
 <hr>
 
 <h2 id="printers">Printers and paper</h2>
 
 <p>Cauldron prints on small thermal printers, the kind made for shipping labels and shop
-receipts. They use no ink. The paper is cheap. Four are supported, and they suit different needs.</p>
+receipts. They use no ink. The paper is cheap. Six are supported, and they suit different needs.</p>
 
 <p class="box" id="storebox" hidden>
 <b>Where do you shop?</b>
@@ -579,10 +669,12 @@ receipts. They use no ink. The paper is cheap. Four are supported, and they suit
 <div class="scroll">
 <table>
   <tr><th>Printer</th><th>Connects by</th><th>What it is like</th><th>Buy</th></tr>
-  <tr><td><b>Phomemo M110</b></td><td>Bluetooth</td><td>The smallest and the cheapest, battery powered. The one to start with for tokens at the table. NOTE: The manufacturer does produce an alternate version of this model under the exact same model number which, frustratingly, has an RFID lockout. If you get this version (you will know because it has spring-loaded arms inside), return it and try to buy from another seller/region, or buy a different supported printer.</td><td><a data-buy="phomemo-m110" href="https://www.amazon.com/dp/B07XXB2MXN?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
-  <tr><td><b>Munbyn FM226</b></td><td>Bluetooth</td><td>Larger, quieter and faster than the M110.</td><td><a data-buy="munbyn-fm226" href="https://www.amazon.com/dp/B0D1VD7ZWF?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td><b>Phomemo M110</b></td><td>Bluetooth</td><td>The smallest and the cheapest, battery powered. The one to start with for tokens at the table. A hundred-card deck in about twelve minutes. NOTE: The manufacturer does produce an alternate version of this model under the exact same model number which, frustratingly, has an RFID lockout. If you get this version (you will know because it has spring-loaded arms inside), return it and try to buy from another seller/region, or buy a different supported printer.</td><td><a data-buy="phomemo-m110" href="https://www.amazon.com/dp/B07XXB2MXN?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td><b>Munbyn FM226</b></td><td>Bluetooth</td><td>Larger and quieter than the M110, battery powered. A hundred-card deck in about fifteen minutes.</td><td><a data-buy="munbyn-fm226" href="https://www.amazon.com/dp/B0D1VD7ZWF?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
   <tr><td><b>Brother QL-710W and QL-810W</b></td><td>Wi-Fi</td><td>Sharpest print, and fully cuts every token off the roll for you. Needs a wall outlet, so it suits a game night at home.</td><td><a data-buy="brother-ql-810w" href="https://www.amazon.com/dp/B01N9ZXCES?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
-  <tr><td><b>NETUM NT-861</b></td><td>Bluetooth</td><td>The fastest by a long shot, 80mm wide receipt paper. Cuts every card to fit a card sleeve. A whole Commander deck in about three minutes. <b>The only one that currently prints booster packs and chaos drafts (this may change).</b></td><td><a data-buy="netum-nt-861" href="https://www.amazon.com/dp/B0GY93MPXG?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td><b>NETUM NT-861</b></td><td>Bluetooth</td><td>80mm wide receipt paper, and the only one with a blade: it cuts every card to fit a card sleeve. A whole Commander deck in about three minutes. <b>The best for booster packs and chaos drafts, because every card comes off cut.</b></td><td><a data-buy="netum-nt-861" href="https://www.amazon.com/dp/B0GY93MPXG?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td><b>Rongta RPP300</b></td><td>Bluetooth</td><td>A full-size card on a battery, on 80mm paper, with a belt loop attachment. No blade: tear or cut the cards apart. A hundred-card deck in about eight minutes.</td><td><a data-buy="rongta-rpp300" href="https://www.amazon.com/dp/B019SW2FKS?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td><b>Rollo Wireless (X1040)</b></td><td>Wi-Fi</td><td>The fastest: a hundred-card deck in about a minute, and it does not overheat. Needs a wall outlet. It is a shipping-label printer that also takes a receipt roll, so Cauldron asks before switching it to receipt paper and can switch it back for your next parcel. No blade: tear or cut the cards apart. Prints booster packs and chaos drafts as a strip. The wireless model only, on 3&frac18;" rolls.</td><td><a data-buy="rollo-x1040" href="https://www.amazon.com/dp/B09VF4Z2WQ?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
 </table>
 </div>
 
@@ -612,8 +704,9 @@ that fit what each printer makes.</p>
   <tr><td>Brother</td><td><b>DK-N5224 54mm roll</b></td><td>Not sticky, and thicker, more like card stock. About 390 tokens a roll, at about 4 cents each.</td><td><a data-buy="brother-dk-n5224" href="https://www.amazon.com/dp/B01DPD31VS?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
   <tr><td>Brother</td><td><b>DK-2205 62mm sticker roll</b></td><td>Twelve rolls and a frame to hold them. About 390 tokens a roll, at under a cent each. Leave the backing on for a stiff card, or stick it on a basic land.</td><td><a data-buy="brother-dk-2205" href="https://www.amazon.com/dp/B0946K4NB7?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
   <tr><td>Brother</td><td><b>Catan-size sleeves</b></td><td>Gamegenic matte, 56&times;82mm. Fits a token cut from the 54mm roll, so printed tokens can be shuffled.</td><td><a data-buy="sleeves-catan-56x82" href="https://www.amazon.com/dp/B084TM6V5W?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
-  <tr><td>NETUM NT-861</td><td><b>3&frac18;" thermal rolls</b></td><td>Receipt paper, 80mm wide and 230 feet long, five rolls. About 1,150 cards a roll, at about a fifth of a cent each.</td><td><a data-buy="receipt-80mm" href="https://www.amazon.com/dp/B0CXSL7WRK?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
-  <tr><td>NETUM NT-861</td><td><b>Dragon Shield sleeves</b></td><td>Matte Dual, standard size, 100. What the cut cards slide into, for decks and draft packs.</td><td><a data-buy="sleeves-standard" href="https://www.amazon.com/dp/B0GY8QC2TQ?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td>NETUM NT-861 and Rollo</td><td><b>3&frac18;" thermal rolls</b></td><td>Receipt paper, 80mm wide and 230 feet long, five rolls. About 1,150 cards a roll, at about a fifth of a cent each.</td><td><a data-buy="receipt-80mm" href="https://www.amazon.com/dp/B0CXSL7WRK?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td>NETUM NT-861, Rongta and Rollo</td><td><b>Dragon Shield sleeves</b></td><td>Matte Dual, standard size, 100. What the sleeve-size cards slide into, for decks and draft packs.</td><td><a data-buy="sleeves-standard" href="https://www.amazon.com/dp/B0GY8QC2TQ?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
+  <tr><td>Rongta RPP300</td><td><b>3&frac18;" rolls, 30mm across</b></td><td>Receipt paper, 80mm wide, in the small rolls that fit inside a printer you carry: 56 feet each, ten rolls. About 280 small tokens a roll, at about two fifths of a cent each. The long rolls above do not fit in it.</td><td><a data-buy="receipt-80mm-portable" href="https://www.amazon.com/dp/B0FGQ7P2TX?tag=magicmate-20" rel="sponsored noopener" target="_blank">Buy on Amazon</a></td></tr>
 </table>
 </div>
 
@@ -629,6 +722,12 @@ once it is fixed.</p>
 <p><b>You do not need the printer manufacturer's proprietary app.</b> Cauldron talks to the printer directly. If
 the maker's app is running, close it before printing: it stays connected to the same printer and
 prints can come out blank. Cauldron warns you when it sees another app holding the printer.</p>
+
+<p><b>A Rollo and its labels.</b> A Rollo comes set for shipping labels with gaps between them,
+and one left like that with a receipt roll in it will feed the roll out looking for a gap. So
+Cauldron checks before every print and will not print on a Rollo that says it is set for labels.
+Settings shows what it is set for and has one button to switch it to receipt paper, and the same
+button switches it back. After either, load the right roll and turn the printer off and on.</p>
 
 <p><b>Blank paper.</b> If paper feeds but nothing is printed on it, flip the roll over. Only one
 side of thermal paper prints.</p>
@@ -653,7 +752,7 @@ Cauldron, a short tutorial teaches you this swipe before anything else.</p>
 <ul>
   <li><b>Board format:</b> auto-rotate between duel and pod, or hold it to one.</li>
   <li><b>Pod size and starting life.</b></li>
-  <li><b>Treachery and Archenemy.</b></li>
+  <li><b>Treachery, Archenemy and Horde.</b></li>
   <li><b>Printer:</b> scan and pair, paper width, and how dark it prints.</li>
   <li><b>Offline cache:</b> how much is stored on the phone.</li>
   <li><b>Speech language:</b> US, UK, Australia, Canada, India and other English regions, so it
@@ -695,8 +794,10 @@ real odds and comes out of the printer in a wrapper with the player's number on 
 <ul>
   <li><b>4 or 8 players.</b> The app runs a draft for either. With 8, everybody takes one card a
       pick as usual. With 4, everybody takes <b>two</b> cards per pick.</li>
-  <li><b>A NETUM NT-861 printer</b>, paired in Cauldron. It is the one printer that cuts cards
-      to sleeve size. Without it the wheel still spins, and nothing prints.</li>
+  <li><b>A NETUM NT-861 or a Rollo Wireless printer</b>, paired in Cauldron. The NETUM cuts
+      every card to sleeve size, which is why it is the better of the two for this. The Rollo
+      prints each pack as one strip, to be cut apart with scissors. Without one of them the
+      wheel still spins, and nothing prints.</li>
   <li><b>Paper.</b> Each pack is about 3.5 feet of 80mm (3&#8539; inch) roll. A 4-player draft
       uses about 42 feet and an 8-player draft about 84. One ordinary 230 foot roll does five
       4-player drafts or two 8-player ones. Put in a fresh roll if you are not sure.</li>
@@ -784,6 +885,16 @@ the phone. Nobody opens anything yet.</p>
       Elvish. Cauldron deals the English printing of those, because on a card this size being
       able to read it matters more.</li>
   <li><b>No pack comes up twice</b> in the same draft.</li>
+  <li><b>Choose before the first spin.</b> A draft can be kept to the sets of Standard, Pioneer,
+      Modern or Legacy, and the cards can be printed with their rules set in clear type under
+      the art (the default, and the one to use: old cards photographed whole are dark type on
+      dark art) or as the whole card.</li>
+  <li><b>Every card is the same size</b>, whatever it says, so the pack folds square and closes
+      in its wrapper.</li>
+  <li><b>Leaving asks first.</b> Once the first pack has been spun for, OUT has to be tapped
+      twice to end the draft.</li>
+  <li><b>On a Rollo nothing is cut.</b> The slip and the cards come out as one strip with a gap
+      between each. Cut them apart with scissors before you wrap the pack.</li>
   <li><b>Wait for PACK COMPLETE.</b> The voice says it when a pack has finished printing. Do not
       lock the phone or switch apps while one is printing.</li>
   <li><b>If the printer stops</b> (no paper, an open cover), fix it and press CARRY ON PRINTING.
@@ -850,7 +961,7 @@ endorsed by Wizards. Portions of the materials used are property of Wizards of t
   var box = document.getElementById('storebox'), pick = document.getElementById('store');
   if (!box || !pick) return;
   var STORES = [["US", "United States", "com", "magicmate-20"], ["GB", "United Kingdom", "co.uk", "labelmate-21"], ["CA", "Canada", "ca", "labelmate09-20"], ["DE", "Germany", "de", "labelmate01-21"], ["AT", "Austria", "de", "labelmate01-21"], ["CH", "Switzerland", "de", "labelmate01-21"], ["LU", "Luxembourg", "de", "labelmate01-21"], ["FR", "France", "fr", ""], ["IT", "Italy", "it", ""], ["ES", "Spain", "es", ""], ["NL", "Netherlands", "nl", ""], ["BE", "Belgium", "com.be", ""], ["SE", "Sweden", "se", ""], ["PL", "Poland", "pl", ""], ["IE", "Ireland", "ie", ""], ["AU", "Australia", "com.au", ""], ["NZ", "New Zealand", "com.au", ""], ["JP", "Japan", "co.jp", ""], ["MX", "Mexico", "com.mx", ""], ["BR", "Brazil", "com.br", ""], ["IN", "India", "in", ""], ["SG", "Singapore", "sg", ""], ["AE", "United Arab Emirates", "ae", ""], ["SA", "Saudi Arabia", "sa", ""], ["TR", "Turkey", "com.tr", ""], ["ZA", "South Africa", "co.za", ""], ["XX", "Somewhere else", "", ""]];
-  var P = {"receipt-2-25": {"a": "B0BVZ1SKRV", "q": "2 1/4 inch thermal receipt paper rolls", "aq": "thermal paper roll 57x40mm", "ab": {"ca": "B0BVZ1SKRV", "com.mx": "B0BVZ1SKRV"}}, "sticker-53mm": {"a": "B0D11Y2B6J", "q": "53mm thermal sticker paper rolls mini printer 12 rolls", "aq": "thermal sticker paper 53mm"}, "brother-dk-2205": {"a": "B0946K4NB7", "q": "DK-2205 compatible continuous label 62mm 12 rolls frame", "aq": "DK-2205 62mm"}, "brother-dk-n5224": {"a": "B01DPD31VS", "q": "DK-N5224 compatible 54mm non-adhesive label roll", "aq": "DK-N5224 54mm", "ab": {"ca": "B01DPD31VS", "com.mx": "B01DPD31VS", "com.br": "B01DPD31VS", "co.jp": "B01DPD31VS"}}, "sleeves-catan-56x82": {"a": "B084TM6V5W", "q": "gamegenic matte catan sleeves 56 x 82mm", "aq": "Gamegenic Catan sleeves 56x82mm", "same": true}, "sleeves-standard": {"a": "B0GY8QC2TQ", "q": "dragon shield matte dual standard size sleeves 100", "aq": "Dragon Shield Matte Dual standard sleeves", "same": true}, "receipt-80mm": {"a": "B0CXSL7WRK", "q": "3 1/8 x 230 thermal receipt paper rolls 80mm", "aq": "thermal paper roll 80x80mm", "same": true}, "phomemo-m110": {"a": "B07XXB2MXN", "q": "phomemo m110 label printer bluetooth", "ph": "m110-label-maker", "ab": {"de": "B07XXB2MXN"}}, "munbyn-fm226": {"a": "B0D1VD7ZWF", "q": "munbyn fm226 label maker bluetooth", "aq": "MUNBYN FM226", "same": true, "si": ["sg"], "ab": {"de": "B0GJ781GBX"}}, "brother-ql-810w": {"a": "B01N9ZXCES", "q": "brother ql-810w wireless label printer", "aq": "Brother QL-810W", "same": true, "si": ["ca", "com.au", "sg"]}, "netum-nt-861": {"a": "B0GY93MPXG", "q": "netum nt-861 bluetooth thermal receipt printer 80mm auto cutter", "aq": "NETUM NT-861", "same": true}};
+  var P = {"receipt-2-25": {"a": "B0BVZ1SKRV", "q": "2 1/4 inch thermal receipt paper rolls", "aq": "thermal paper roll 57x40mm", "ab": {"ca": "B0BVZ1SKRV", "com.mx": "B0BVZ1SKRV"}}, "sticker-53mm": {"a": "B0D11Y2B6J", "q": "53mm thermal sticker paper rolls mini printer 12 rolls", "aq": "thermal sticker paper 53mm"}, "brother-dk-2205": {"a": "B0946K4NB7", "q": "DK-2205 compatible continuous label 62mm 12 rolls frame", "aq": "DK-2205 62mm"}, "brother-dk-n5224": {"a": "B01DPD31VS", "q": "DK-N5224 compatible 54mm non-adhesive label roll", "aq": "DK-N5224 54mm", "ab": {"ca": "B01DPD31VS", "com.mx": "B01DPD31VS", "com.br": "B01DPD31VS", "co.jp": "B01DPD31VS"}}, "sleeves-catan-56x82": {"a": "B084TM6V5W", "q": "gamegenic matte catan sleeves 56 x 82mm", "aq": "Gamegenic Catan sleeves 56x82mm", "same": true}, "sleeves-standard": {"a": "B0GY8QC2TQ", "q": "dragon shield matte dual standard size sleeves 100", "aq": "Dragon Shield Matte Dual standard sleeves", "same": true}, "receipt-80mm": {"a": "B0CXSL7WRK", "q": "3 1/8 x 230 thermal receipt paper rolls 80mm", "aq": "thermal paper roll 80x80mm", "same": true}, "phomemo-m110": {"a": "B07XXB2MXN", "q": "phomemo m110 label printer bluetooth", "ph": "m110-label-maker", "ab": {"de": "B07XXB2MXN"}}, "munbyn-fm226": {"a": "B0D1VD7ZWF", "q": "munbyn fm226 label maker bluetooth", "aq": "MUNBYN FM226", "same": true, "si": ["sg"], "ab": {"de": "B0GJ781GBX"}}, "brother-ql-810w": {"a": "B01N9ZXCES", "q": "brother ql-810w wireless label printer", "aq": "Brother QL-810W", "same": true, "si": ["ca", "com.au", "sg"]}, "netum-nt-861": {"a": "B0GY93MPXG", "q": "netum nt-861 bluetooth thermal receipt printer 80mm auto cutter", "aq": "NETUM NT-861", "same": true}, "rongta-rpp300": {"a": "B019SW2FKS", "q": "rongta rpp300 80mm portable bluetooth thermal receipt printer", "aq": "Rongta RPP300"}, "receipt-80mm-portable": {"a": "B0FGQ7P2TX", "q": "80mm x 30mm thermal receipt paper rolls portable mobile printer", "aq": "thermal paper roll 80x30mm"}, "rollo-x1040": {"a": "B09VF4Z2WQ", "q": "rollo wireless shipping label printer x1040", "aq": "Rollo Wireless X1040"}};
   var GONE = ["ca/B0CXSL7WRK", "ca/B0D1VD7ZWF", "ca/B0GY93MPXG", "co.jp/B01N9ZXCES", "co.jp/B0CXSL7WRK", "co.jp/B0D1VD7ZWF", "co.jp/B0GY93MPXG", "co.uk/B0CXSL7WRK", "co.uk/B0D1VD7ZWF", "co.za/B01N9ZXCES", "co.za/B0GY93MPXG", "com.au/B0D1VD7ZWF", "de/B0CXSL7WRK", "de/B0D1VD7ZWF", "es/B01N9ZXCES", "es/B0CXSL7WRK", "es/B0D1VD7ZWF", "fr/B0D1VD7ZWF", "ie/B01N9ZXCES", "ie/B0CXSL7WRK", "in/B01N9ZXCES", "in/B0CXSL7WRK", "in/B0D1VD7ZWF", "it/B0CXSL7WRK", "it/B0D1VD7ZWF", "pl/B01N9ZXCES", "pl/B0CXSL7WRK", "se/B01N9ZXCES", "se/B0CXSL7WRK"];
   var gone = {}; GONE.forEach(function (k) { gone[k] = 1; });
   function q(words) { return encodeURIComponent(words).replace(/%20/g, '+'); }

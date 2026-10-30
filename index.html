@@ -51,6 +51,21 @@
   .videos { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
   .video { flex: 0 1 340px; min-width: 0; text-align: center; }
   .video .instagram-media { margin: 6px auto 0 !important; }
+  /* The voice glossary: a group to a fold. */
+  details.gloss { border: 2px outset #ffffff; background: #d0d0d0; margin: 6px 0; padding: 0 10px; }
+  details.gloss[open] { padding-bottom: 8px; }
+  details.gloss summary { cursor: pointer; font-weight: bold; padding: 6px 0; }
+  details.gloss table { width: 100%; font-size: 0.92em; }
+  details.gloss td:first-child { white-space: normal; }
+  /* On a phone each command is a little card of its own, not three squeezed columns. */
+  @media (max-width: 600px) {
+    details.gloss table, details.gloss tbody, details.gloss tr, details.gloss td { display: block; }
+    details.gloss table { border: 0; background: none; }
+    details.gloss tr:first-child { display: none; }
+    details.gloss tr { border: 2px outset #ffffff; margin-bottom: 6px; padding: 4px 0; }
+    details.gloss td { border: 0; padding: 2px 8px; }
+    details.gloss td:nth-child(2):not(:empty)::before { content: "Also: "; font-style: italic; }
+  }
 </style>
 </head>
 <body>
@@ -82,6 +97,7 @@
   <ul>
     <li><a href="#voice">Tokens by voice</a></li>
     <li><a href="#say">More things to say</a></li>
+    <li><a href="#glossary">Voice glossary</a></li>
     <li><a href="#printers">Printers and paper</a></li>
     <li><a href="#signs">E-ink signs</a></li>
   </ul>
@@ -530,6 +546,154 @@ links on it, to hand to the person who has been asking about the printer all nig
 <span class="say">settings</span>, <span class="say">token index</span>,
 <span class="say">card index</span>, <span class="say">six players</span>,
 <span class="say">starting life thirty</span>.</p>
+
+<hr>
+
+<h2 id="glossary">Voice glossary</h2>
+
+<p>Every voice command Cauldron knows, apart from the easter eggs. Hold the dial, wait for the beep, say it, let go. Open a group to see
+what is in it. Capital letters and punctuation never matter, and most commands also answer to
+the ways a phone tends to mishear them.</p>
+
+<p class="small"><span class="say">&lt;n&gt;</span> is a number, said or as digits.
+<span class="say">&lt;color&gt;</span> is a seat's color.
+<span class="say">&lt;card&gt;</span> is a real card's name.
+Words in [brackets] can be left out, and a / means either word.</p>
+
+<p class="small">[ <a href="#glossary" id="glossaryall">Open every group</a> ]</p>
+
+<details class="gloss">
+<summary>Life and the table</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">starting life &lt;n&gt;</span></td><td>start life, start at 30 life, starting life total is forty</td><td>Sets the starting life for this table and starts over on it. One Time Travel away from undone.</td></tr>
+<tr><td><span class="say">&lt;n&gt; players</span></td><td>player, seats, a game for six seats</td><td>Two to eight seats. Two is a duel.</td></tr>
+<tr><td><span class="say">partners &lt;color&gt;</span></td><td>red partners, the blue seat has partners</td><td>That seat has two commanders, each counted on its own. Say it again to take it back.</td></tr>
+<tr><td><span class="say">turn timer</span></td><td>turn timer on / off, show / hide, start / stop</td><td>Asks who goes first, then a PASS button follows the turn around the table.</td></tr>
+<tr><td><span class="say">reverse turn order</span></td><td>turn order backwards, counterclockwise, turn timer reverse</td><td>Turns go the other way around the table. Say it again to put it back.</td></tr>
+<tr><td><span class="say">show the clock</span></td><td>hide the clock, game clock on / off, toggle the clock, show timer</td><td>Shows or hides the game clock. "Clock" on its own is the card Midnight Clock.</td></tr>
+</table></div>
+</details>
+
+<details class="gloss">
+<summary>Tokens</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">two two zombie</span></td><td>2/2, two by two, three slash three, star star, x x</td><td>A token by what it is: power and toughness, colors, card types, creature type and abilities, in any order.</td></tr>
+<tr><td><span class="say">one one white spirit with flying</span></td><td>flying, trample, lifelink, deathtouch, haste, menace, ward, first strike, and the rest</td><td>Colors and abilities narrow it down. Words left over are matched against the token's rules text.</td></tr>
+<tr><td><span class="say">three three centaur with pro black</span></td><td>protection from black</td><td>Protection is an ability. It does not make the token black.</td></tr>
+<tr><td><span class="say">treasure</span></td><td>food, clue, blood, map, role, gold, junk, shard, powerstone</td><td>Any token by its name.</td></tr>
+<tr><td><span class="say">copy &lt;card&gt;</span></td><td>copy of Swiftfoot Boots, copy token</td><td>A copy token of that card, with its art and its words.</td></tr>
+<tr><td><span class="say">&lt;planeswalker&gt; emblem</span></td><td>Chandra emblem</td><td>That planeswalker's emblem.</td></tr>
+<tr><td><span class="say">tomb of annihilation</span></td><td>undercity, lost mine of phandelver, dungeon of the mad mage, baldur's gate wilderness</td><td>A dungeon.</td></tr>
+<tr><td><span class="say">toralf's disciple</span></td><td>oracle of the alpha, pinchy, pearl collector, rock paper scissors</td><td>A card that conjures cards prints the cards it conjures.</td></tr>
+<tr><td><span class="say">banana</span></td><td>giant bird, zeppelin, djinn, goblin scout, camarid, urami, tetravite, elemental cat, hippo</td><td>A token the Cauldron Art Crew drew, where no official one exists.</td></tr>
+<tr><td><span class="say">&lt;token&gt; camera</span></td><td>one one dog camera, treasure camera</td><td>Takes a photo and prints it as that token. The photo is kept as that token's art.</td></tr>
+</table></div>
+<p class="small">"Token" at the end is never needed. A count is not understood: "three zombies" prints one Zombie.
+Tap the card on screen for more copies.</p>
+</details>
+
+<details class="gloss">
+<summary>Real cards</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">card &lt;card&gt;</span></td><td>card sol ring</td><td>Prints that card the way the card index is set to print. "Card" has to come first: "goblin card" is a Goblin token.</td></tr>
+<tr><td><span class="say">card &lt;card&gt; token</span></td><td>card voice of resurgence tokens</td><td>The tokens that card makes, one of each, and not the card itself.</td></tr>
+<tr><td><span class="say">momir &lt;n&gt;</span></td><td>momir five, momir zero to sixteen</td><td>A random creature with that mana value.</td></tr>
+<tr><td><span class="say">calling mister vig</span></td><td>call mr vig, dial mister vig</td><td>Turns the board into Momir's payphone. Dial a mana value to print a creature.</td></tr>
+<tr><td><span class="say">discord trigger</span></td><td>discord triggered</td><td>A secret random card that nobody sees: to the e-ink sign, or printed.</td></tr>
+<tr><td><span class="say">last discord</span></td><td>discord again</td><td>Prints the last Discord card and says its name.</td></tr>
+<tr><td><span class="say">fish deck</span></td><td>the fish deck, dandan deck</td><td>Asks first, then puts the whole 80-card Dandân deck in the print queue: the two-player game where both of you draw from one shared library.</td></tr>
+<tr><td><span class="say">print favorites</span></td><td>print my favorites, print faves</td><td>Prints every artwork you have hearted.</td></tr>
+</table></div>
+</details>
+
+<details class="gloss">
+<summary>Labels, counters and slips</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">goaded</span></td><td>goad</td><td>A Goaded label, with the rule on it.</td></tr>
+<tr><td><span class="say">goaded &lt;color&gt;</span></td><td>goaded by red</td><td>A Goaded label naming the seat it cannot attack. The first four seats' colors.</td></tr>
+<tr><td><span class="say">phased out</span></td><td>phased, phase out</td><td>A label with the rule's reminder on it.</td></tr>
+<tr><td><span class="say">suspected</span>, <span class="say">monstrous</span>, <span class="say">renowned</span>, <span class="say">adapted</span></td><td>suspect, monstrosity, renown, adapt</td><td>A label with the rule's reminder on it.</td></tr>
+<tr><td><span class="say">summoning sick</span>, <span class="say">exerted</span>, <span class="say">prepared</span></td><td>summoning sickness, exert, prepare</td><td>A label with the rule's reminder on it.</td></tr>
+<tr><td><span class="say">stun</span>, <span class="say">shield</span>, <span class="say">finality</span>, <span class="say">indestructible</span></td><td>stunned, shielded, final</td><td>A label with the rule's reminder on it.</td></tr>
+<tr><td><span class="say">flying</span>, <span class="say">trample</span>, <span class="say">deathtouch</span>, <span class="say">first strike</span>, <span class="say">double strike</span>, <span class="say">vigilance</span>, <span class="say">hexproof</span>, <span class="say">lifelink</span>, <span class="say">menace</span>, <span class="say">reach</span></td><td>flier, vigilant</td><td>A label with the rule's reminder on it.</td></tr>
+<tr><td><span class="say">plus one plus one counter</span></td><td>plus three plus three, minus one minus one, up to 99</td><td>A +N/+N or -N/-N label. Both numbers have to match.</td></tr>
+<tr><td><span class="say">marker &lt;anything&gt;</span></td><td>marker that says dealt combat damage by Gollum</td><td>A label with your own words on it.</td></tr>
+<tr><td><span class="say">commander tax</span></td><td>commanders tax</td><td>A TAX slip, +2 to +10, to tuck under your commander.</td></tr>
+<tr><td><span class="say">floating mana</span></td><td>mana pool</td><td>A WUBRG strip to keep dice on for mana you are holding.</td></tr>
+</table></div>
+<p class="small">A label word is said on its own, as the whole phrase. "&lt;word&gt; counter" works
+too: "stun counter", "shield counter".</p>
+</details>
+
+<details class="gloss">
+<summary>Dice and coins</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">roll a d20</span></td><td>d4, d6, d8, d10, d12, d100, twenty sided die, d20 roll, throw a d6</td><td>Rolls that die. "Roll a die" with no size is a d20.</td></tr>
+<tr><td><span class="say">flip a coin</span></td><td>flip, toss, toss a coin</td><td>Heads or tails.</td></tr>
+<tr><td><span class="say">roll the planar die</span></td><td>planar die, roll planar</td><td>The Planechase die.</td></tr>
+</table></div>
+</details>
+
+<details class="gloss">
+<summary>Ways to play</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">treachery</span></td><td>play treachery, treachery off, simple treachery, full treachery</td><td>Starts or ends a game of Treachery. Simple deals roles, full deals identity cards.</td></tr>
+<tr><td><span class="say">archenemy</span></td><td>play archenemy, archenemy off</td><td>Starts or ends a game of Archenemy.</td></tr>
+<tr><td><span class="say">next scheme</span></td><td>scheme, set a scheme in motion</td><td>Prints the archenemy's next scheme.</td></tr>
+<tr><td><span class="say">horde</span></td><td>play horde, play horde three, horde off</td><td>Starts or ends a game against the Horde, for one to four survivors.</td></tr>
+<tr><td><span class="say">horde's turn</span></td><td>horde attacks, next turn, horde</td><td>The Horde turns over its cards. In a Horde game, "horde" alone is its turn.</td></tr>
+<tr><td><span class="say">planeswalk</span></td><td>next plane, random plane</td><td>The next plane off a planar deck sized for your table.</td></tr>
+<tr><td><span class="say">plane &lt;plane&gt;</span></td><td>plane Academy at Tolaria West</td><td>That plane in particular.</td></tr>
+</table></div>
+</details>
+
+<details class="gloss">
+<summary>Photos and drawings</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">camera</span></td><td>photo, picture, take a photo</td><td>Prints a photo of anything, just as it is.</td></tr>
+<tr><td><span class="say">copy camera</span></td><td>copies camera</td><td>Photograph a card and it prints as the copy another card makes of it.</td></tr>
+<tr><td><span class="say">sketch</span></td><td>sketches</td><td>Fifteen seconds to draw the token D00-DL, Caricaturist makes, then it prints.</td></tr>
+<tr><td><span class="say">freestyle</span></td><td>free style</td><td>Fifteen seconds to draw anything, printed as drawn.</td></tr>
+</table></div>
+</details>
+
+<details class="gloss">
+<summary>Screens and lists</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">settings</span></td><td>open settings, options, preferences</td><td>Opens settings.</td></tr>
+<tr><td><span class="say">token index</span></td><td></td><td>Opens the token index.</td></tr>
+<tr><td><span class="say">card index</span></td><td></td><td>Opens the card index.</td></tr>
+<tr><td><span class="say">keyword list</span></td><td>abilities glossary, show all abilities, glossary</td><td>Every keyword in the game with its reminder text.</td></tr>
+<tr><td><span class="say">keyword &lt;keyword&gt;</span></td><td>what is ward, what's bushido, what does cascade do, define flanking</td><td>The keyword list, opened on that one.</td></tr>
+</table></div>
+</details>
+
+<details class="gloss">
+<summary>Printer and paper</summary>
+<div class="scroll"><table>
+<tr><th>Say</th><th>Also works</th><th>What it does</th></tr>
+<tr><td><span class="say">connect printer</span></td><td>pair printer, pair printer 0028</td><td>Pairs the nearest printer, or the one whose serial ends in those four digits.</td></tr>
+<tr><td><span class="say">order m110 printer</span></td><td>buy paper, order munbyn, order labels</td><td>Opens the store page for that printer or its paper.</td></tr>
+<tr><td><span class="say">e-ink</span></td><td>nfc token, use e-ink mode</td><td>Sends tokens to the e-ink sign instead of paper.</td></tr>
+<tr><td><span class="say">printer</span></td><td>receipt paper, switch to printer</td><td>Sends tokens back to paper.</td></tr>
+<tr><td><span class="say">big head mode</span></td><td></td><td>On an 80mm receipt printer, a token on its own prints across the whole head. Say it again to turn it off.</td></tr>
+<tr><td><span class="say">print sideways</span></td><td>small head mode</td><td>On an 80mm receipt printer, a token prints sleeve sized, lying down. Say it again to turn it off.</td></tr>
+<tr><td><span class="say">qr download</span></td><td>qr code</td><td>A slip with the store links, for whoever asks about the printer.</td></tr>
+</table></div>
+</details>
+
+<p class="small">Not every phrase is checked in the same order, so a few overlap. "What is" and
+"keyword" always open the keyword list. A phrase that ends in "camera" takes a photo. "Sketch"
+or "freestyle" anywhere in a phrase starts a drawing. And a phrase that is only an ability, like
+"flying", prints a label, while "one one flying spirit" is still a token.</p>
 
 <hr>
 
@@ -1065,6 +1229,20 @@ endorsed by Wizards. Portions of the materials used are property of Wizards of t
 
 </div>
 </div>
+<script>
+// The glossary's "open every group", which becomes "close every group" once they are.
+(function () {
+  var all = document.getElementById('glossaryall');
+  if (!all) return;
+  all.addEventListener('click', function (e) {
+    e.preventDefault();
+    var groups = document.querySelectorAll('details.gloss');
+    var open = !Array.prototype.every.call(groups, function (d) { return d.open; });
+    groups.forEach(function (d) { d.open = open; });
+    all.textContent = open ? 'Close every group' : 'Open every group';
+  });
+})();
+</script>
 <script>
 // Mark the section being read in the menu.
 (function () {
